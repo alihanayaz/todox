@@ -1,0 +1,29 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1')
+        link(rel='stylesheet' href='/css/style.css')
+    body
+        .todoapp
+            header.header
+                h1 todos
+                form(
+                    hx-post="/todos"
+                    hx-target="#todo-list"
+                    hx-swap="afterbegin"
+                    _="on htmx:afterOnLoad set #new-todo.value to ''"
+                )
+                    input.new-todo#new-todo(
+                        placeholder="What needs to be done?"
+                        name="name"
+                        autoFocus
+                    )
+                section.main
+                    ul.todo-list#todo-list
+                        each todo in todos 
+                            include todo-item
+                footer.footer
+                    include item-count
+        script(src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous")
+        script(src="https://unpkg.com/hyperscript.org@0.9.12")
